@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instara - 应用下载</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4F46E5',
+                        secondary: '#10B981',
+                        neutral: '#64748B'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .loading-spin {
+                animation: spin 1.5s linear infinite;
+            }
+            .fade-in {
+                animation: fadeIn 0.5s ease-in-out;
+            }
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .card {
+            @apply bg-white rounded-xl shadow-lg p-6 max-w-md w-full;
+        }
+        
+        .btn {
+            @apply px-4 py-2 rounded-lg font-medium transition-all duration-300;
+        }
+        
+        .btn-primary {
+            @apply bg-primary text-white hover:bg-primary/90;
+        }
+        
+        .btn-outline {
+            @apply border border-primary text-primary hover:bg-primary/10;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 to-slate-100 min-h-screen flex items-center justify-center p-4 font-sans">
+    <div id="loading-container" class="text-center fade-in card">
+        <!-- 应用图标 -->
+        <div class="w-24 h-24 mx-auto mb-6 bg-primary/10 rounded-full flex items-center justify-center">
+            <i class="fa fa-rocket text-4xl text-primary"></i>
+        </div>
+        
+        <!-- 加载动画 -->
+        <div class="w-12 h-12 border-4 border-primary/20 border-t-primary rounded-full loading-spin mx-auto mb-6"></div>
+        
+        <!-- 状态文本 -->
+        <h2 id="status-text" class="text-xl font-medium text-slate-800 mb-2">正在检测您的设备...</h2>
+        <p id="message-text" class="text-neutral mb-4">请稍候，我们将为您跳转到合适的下载页面</p>
+        
+        <!-- 手动跳转按钮（默认隐藏） -->
+        <div id="manual-jump" class="hidden mt-6">
+            <button id="jump-btn" class="btn btn-primary w-full mb-3">
+                <i class="fa fa-download mr-2"></i>手动跳转
+            </button>
+            <button id="help-btn" class="btn btn-outline w-full">
+                <i class="fa fa-question-circle mr-2"></i>遇到问题？
+            </button>
+        </div>
+        
+        <!-- 帮助信息（默认隐藏） -->
+        <div id="help-info" class="hidden mt-4 text-left text-sm bg-slate-50 p-4 rounded-lg">
+            <h3 class="font-medium text-slate-700 mb-2">如何手动打开TestFlight？</h3>
+            <ol class="list-decimal list-inside space-y-1">
+                <li>确保已安装TestFlight应用</li>
+                <li>点击上方"手动跳转"按钮</li>
+                <li>当系统询问时，选择"打开"</li>
+                <li>在TestFlight中接受邀请</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function() {
+            const userAgent = navigator.userAgent;
+            const statusText = document.getElementById('status-text');
+            const messageText = document.getElementById('message-text');
+            const loadingContainer = document.getElementById('loading-container');
+            const manualJump = document.getElementById('manual-jump');
+            const jumpBtn = document.getElementById('jump-btn');
+            const helpBtn = document.getElementById('help-btn');
+            const helpInfo = document.getElementById('help-info');
+            
+            // 短暂延迟以展示加载状态
+            setTimeout(() => {
+                // 检测Android设备
+                if (/Android|Linux/i.test(userAgent)) {
+                    statusText.textContent = "正在为您跳转至Android下载页面...";
+                    messageText.textContent = "如果没有自动跳转，请稍后重试";
+                    
+                    // 延迟跳转，让用户看到状态变化
+                    setTimeout(() => {
+                        window.location.href = "https://www.pgyer.com/muC6z7dZ";
+                    }, 1500);
+                }
+                // 检测iOS设备
+                else if (/iPhone|iPad|iPod/i.test(userAgent)) {
+                    statusText.textContent = "正在为您打开TestFlight...";
+                    messageText.textContent = "请稍等，正在尝试启动应用";
+                    
+                    // 使用URL Scheme直接打开TestFlight
+                    const appUrl = "itms-beta://testflight.apple.com/join/QTrhXDAd";
+                    
+                    // 尝试直接打开TestFlight应用
+                    window.location.href = appUrl;
+                    
+                    // 设置超时，如果5秒后未打开则显示手动跳转按钮
+                    setTimeout(() => {
+                        // 显示手动跳转选项
+                        statusText.textContent = "无法自动打开TestFlight";
+                        messageText.textContent = "请手动点击下方按钮跳转";
+                        document.querySelector('.loading-spin').classList.add('hidden');
+                        manualJump.classList.remove('hidden');
+                        
+                        // 更新应用图标为警告图标
+                        const iconContainer = document.querySelector('.w-24');
+                        iconContainer.innerHTML = '<i class="fa fa-exclamation-triangle text-4xl text-amber-500"></i>';
+                        iconContainer.classList.remove('bg-primary/10');
+                        iconContainer.classList.add('bg-amber-100');
+                        
+                        // 添加手动跳转功能
+                        jumpBtn.addEventListener('click', () => {
+                            window.location.href = appUrl;
+                        });
+                        
+                        // 添加帮助按钮功能
+                        helpBtn.addEventListener('click', () => {
+                            helpInfo.classList.toggle('hidden');
+                        });
+                    }, 5000);
+                }
+                // 其他设备
+                else {
+                    // 移除加载动画，显示不支持信息
+                    document.querySelector('.loading-spin').remove();
+                    
+                    statusText.textContent = "当前系统不支持安装此应用";
+                    messageText.textContent = "该应用仅支持Android和iOS系统";
+                    
+                    // 添加不支持提示的图标
+                    const iconContainer = document.querySelector('.w-24');
+                    iconContainer.innerHTML = '<i class="fa fa-exclamation-triangle text-4xl text-amber-500"></i>';
+                    iconContainer.classList.remove('bg-primary/10');
+                    iconContainer.classList.add('bg-amber-100');
+                }
+            }, 1000);
+        };
+    </script>
+</body>
+</html>
