@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instara - 应用下载</title>
+    <title>Your_APP_Name - 应用下载</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
     
@@ -120,7 +120,7 @@
                     
                     // 延迟跳转，让用户看到状态变化
                     setTimeout(() => {
-                        window.location.href = "https://www.pgyer.com/muC6z7dZ";
+                        window.location.href = "https://your-pgyer-url";
                     }, 1500);
                 }
                 // 检测iOS设备
@@ -129,7 +129,7 @@
                     messageText.textContent = "请稍等，正在尝试启动应用";
                     
                     // 使用URL Scheme直接打开TestFlight
-                    const appUrl = "itms-beta://testflight.apple.com/join/QTrhXDAd";
+                    const appUrl = "itms-beta://testflight.apple.com/join/YOUR_TF_ID";
                     
                     // 尝试直接打开TestFlight应用
                     window.location.href = appUrl;
@@ -177,4 +177,5 @@
         };
     </script>
 </body>
+
 </html>
