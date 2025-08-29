@@ -80,13 +80,19 @@
 				<span>微信浏览器可能限制跳转，请点击右上角 <i class="fa fa-ellipsis-h ml-1"></i>，选择“在浏览器中打开”以继续</span>
 			</p>
 		</div>
-        <!-- 手动跳转按钮（默认隐藏） -->
+        <!-- 手动跳转按钮（iOS 默认隐藏） -->
         <div id="manual-jump" class="hidden mt-6">
             <button id="jump-btn" class="btn btn-primary w-full mb-3">
                 <i class="fa fa-download mr-2"></i>手动跳转
             </button>
             <button id="help-btn" class="btn btn-outline w-full">
                 <i class="fa fa-question-circle mr-2"></i>遇到问题？
+            </button>
+        </div>
+		<!-- 手动跳转按钮（Android 默认隐藏） -->
+        <div id="manual-jump-android" class="hidden mt-6">
+            <button id="jump-btn-android" class="btn btn-primary w-full mb-3">
+                <i class="fa fa-download mr-2"></i>手动跳转
             </button>
         </div>
         <!-- 帮助信息（默认隐藏） -->
@@ -109,8 +115,10 @@
 			const messageText = document.getElementById('message-text');
 			const loadingContainer = document.getElementById('loading-container');
 			const manualJump = document.getElementById('manual-jump');
+			const manualJumpAndroid = document.getElementById('manual-jump-android');
 			const helpTip = document.getElementById('help-tip');
 			const jumpBtn = document.getElementById('jump-btn');
+			const jumpBtnAndroid = document.getElementById('jump-btn-android');
 			const helpBtn = document.getElementById('help-btn');
 			const helpInfo = document.getElementById('help-info');
 			// 获取两个不同的微信提示元素
@@ -178,25 +186,21 @@
 						// 非微信环境的Android设备：正常自动跳转
 						statusText.textContent = "正在为您跳转至 Android 下载页面...";
 						messageText.textContent = "如果没有自动跳转，请点击下方按钮";
-						manualJump.classList.remove('hidden');
+						manualJumpAndroid.classList.remove('hidden');
 						// 自动跳转逻辑
 						setTimeout(() => {
 							window.location.href = "https://download.teljane.com/en/instara.apk";
 							// 备用链接
-							setTimeout(() => {
-								window.location.href = "https://www.pgyer.com/muC6z7dZ";
-							}, 1500);
+							//setTimeout(() => {
+							//	window.location.href = "https://www.pgyer.com/muC6z7dZ";
+							//}, 1500);
 						}, 1500);
 
 						// 手动跳转按钮
-						jumpBtn.addEventListener('click', () => {
+						jumpBtnAndroid.addEventListener('click', () => {
 							window.location.href = "https://www.pgyer.com/muC6z7dZ";
 						});
 					}
-					// 手动跳转按钮点击时强化提示
-					helpBtn.addEventListener('click', () => {
-						alert('请先点击右上角"..."选择"在浏览器中打开"，再点击下载按钮');
-					});
 				}
 			}, 1000);
 		};
