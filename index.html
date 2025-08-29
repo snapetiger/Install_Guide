@@ -200,13 +200,12 @@
 				} else {
 					// 其他系统处理逻辑（保持不变）
 					document.querySelector('.loading-spin').remove();
-					statusText.textContent = "已触发下载，请留意浏览器通知";
-					messageText.textContent = "若未弹出下载，则您的设备不支持安装此应用";
+					statusText.textContent = "当前系统不支持安装此应用";
+					messageText.textContent = "该应用仅支持 Android 和 iOS 系统";
 					const iconContainer = document.querySelector('.w-24');
 					iconContainer.innerHTML = '<i class="fa fa-exclamation-triangle text-4xl text-amber-500"></i>';
 					iconContainer.classList.remove('bg-primary/10');
 					iconContainer.classList.add('bg-amber-100');
-					
 				}
 			}, 1000);
 		};
