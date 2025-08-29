@@ -146,8 +146,8 @@
 						// iOS非微信处理逻辑（保持不变）
 						statusText.textContent = "正在为您打开 TestFlight...";
 						messageText.textContent = "请稍等，正在尝试启动应用";
-						const appUrl = "itms-beta://testflight.apple.com/join/QTrhXDAd";
-						const webUrl = "https://testflight.apple.com/join/QTrhXDAd";
+						const appUrl = "itms-beta://testflight.apple.com/join/xxx";
+						const webUrl = "https://testflight.apple.com/join/xxx";
 						window.location.href = appUrl;
 						setTimeout(() => {
 							statusText.textContent = "无法自动打开 TestFlight";
@@ -189,16 +189,16 @@
 						manualJumpAndroid.classList.remove('hidden');
 						// 自动跳转逻辑
 						setTimeout(() => {
-							window.location.href = "https://download.teljane.com/en/instara.apk";
+							window.location.href = "https://xxx";
 							// 备用链接
 							//setTimeout(() => {
-							//	window.location.href = "https://www.pgyer.com/muC6z7dZ";
+							//	window.location.href = "https://www.pgyer.com/xxx";
 							//}, 1500);
 						}, 1500);
 
 						// 手动跳转按钮
 						jumpBtnAndroid.addEventListener('click', () => {
-							window.location.href = "https://www.pgyer.com/muC6z7dZ";
+							window.location.href = "https://www.pgyer.com/xxx";
 						});
 					}
 				}
@@ -207,3 +207,4 @@
 	</script>
 </body>
 </html>
+
