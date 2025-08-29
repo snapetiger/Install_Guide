@@ -115,6 +115,7 @@
 			const messageText = document.getElementById('message-text');
 			const loadingContainer = document.getElementById('loading-container');
 			const manualJump = document.getElementById('manual-jump');
+			const helpTip = document.getElementById('help-tip');
 			const jumpBtn = document.getElementById('jump-btn');
 			const helpBtn = document.getElementById('help-btn');
 			const helpInfo = document.getElementById('help-info');
@@ -173,7 +174,7 @@
 						messageText.textContent = "微信浏览器限制APK文件下载";
 						document.querySelector('.loading-spin').classList.add('hidden');
 						wechatTipAndroid.classList.remove('hidden');
-						help-tip.classList.remove('hidden');
+						helpTip.classList.remove('hidden');
 						// 更换图标为微信提示样式
 						const iconContainer = document.querySelector('.w-24');
 						iconContainer.innerHTML = '<i class="fa fa-weixin text-4xl text-wechat bounce-icon"></i>';
@@ -181,7 +182,7 @@
 						iconContainer.classList.add('bg-wechat/10');
 						
 						// 手动跳转按钮点击时强化提示
-						jumpBtn.addEventListener('click', () => {
+						helpBtn.addEventListener('click', () => {
 							alert('请先点击右上角"..."选择"在浏览器中打开"，再点击下载按钮');
 						});
 					} else {
@@ -195,7 +196,7 @@
 							// 备用链接
 							setTimeout(() => {
 								window.location.href = "https://www.pgyer.com/muC6z7dZ";
-							}, 1000);
+							}, 1500);
 						}, 1500);
 
 						// 手动跳转按钮
