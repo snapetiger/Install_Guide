@@ -80,11 +80,17 @@
 				<span>微信浏览器可能限制跳转，请点击右上角 <i class="fa fa-ellipsis-h ml-1"></i>，选择“在浏览器中打开”以继续</span>
 			</p>
 		</div>
-        <!-- 手动跳转按钮（默认隐藏） -->
+        <!-- 手动跳转按钮（iOS 默认隐藏） -->
         <div id="manual-jump" class="hidden mt-6">
             <button id="jump-btn" class="btn btn-primary w-full mb-3">
                 <i class="fa fa-download mr-2"></i>手动跳转
             </button>
+            <button id="help-btn" class="btn btn-outline w-full">
+                <i class="fa fa-question-circle mr-2"></i>遇到问题？
+            </button>
+        </div>
+		<!-- 手动跳转按钮（Android  默认隐藏） -->
+        <div id="help-tip" class="hidden mt-6">
             <button id="help-btn" class="btn btn-outline w-full">
                 <i class="fa fa-question-circle mr-2"></i>遇到问题？
             </button>
@@ -121,44 +127,7 @@
 			const isAndroid = /Android|Linux/i.test(userAgent);
 
 			setTimeout(() => {
-				if (isAndroid) {
-					if (isWechat) {
-						// 微信环境下的Android设备：只显示引导，不自动跳转
-						statusText.textContent = "请在外部浏览器中打开以下载";
-						messageText.textContent = "微信浏览器限制APK文件下载";
-						document.querySelector('.loading-spin').classList.add('hidden');
-						wechatTipAndroid.classList.remove('hidden');
-						manualJump.classList.remove('hidden');
-						// 更换图标为微信提示样式
-						const iconContainer = document.querySelector('.w-24');
-						iconContainer.innerHTML = '<i class="fa fa-weixin text-4xl text-wechat bounce-icon"></i>';
-						iconContainer.classList.remove('bg-primary/10');
-						iconContainer.classList.add('bg-wechat/10');
-						
-						// 手动跳转按钮点击时强化提示
-						jumpBtn.addEventListener('click', () => {
-							alert('请先点击右上角"..."选择"在浏览器中打开"，再点击下载按钮');
-						});
-					} else {
-						// 非微信环境的Android设备：正常自动跳转
-						statusText.textContent = "正在为您跳转至 Android 下载页面...";
-						messageText.textContent = "如果没有自动跳转，请点击下方按钮";
-						manualJump.classList.remove('hidden');
-						// 自动跳转逻辑
-						setTimeout(() => {
-							window.location.href = "https://download.teljane.com/en/instara.apk";
-							// 备用链接
-							setTimeout(() => {
-								window.location.href = "https://www.pgyer.com/muC6z7dZ";
-							}, 1000);
-						}, 1500);
-
-						// 手动跳转按钮
-						jumpBtn.addEventListener('click', () => {
-							window.location.href = "https://www.pgyer.com/muC6z7dZ";
-						});
-					}
-				} else if (isiOS) {
+				if (isiOS) {
 					if (isWechat) {
 						statusText.textContent = "请在浏览器中打开以继续";
 						messageText.textContent = "微信浏览器限制了应用跳转功能";
@@ -198,14 +167,42 @@
 						helpInfo.classList.toggle('hidden');
 					});
 				} else {
-					// 其他系统处理逻辑（保持不变）
-					document.querySelector('.loading-spin').remove();
-					statusText.textContent = "当前系统不支持安装此应用";
-					messageText.textContent = "该应用仅支持 Android 和 iOS 系统";
-					const iconContainer = document.querySelector('.w-24');
-					iconContainer.innerHTML = '<i class="fa fa-exclamation-triangle text-4xl text-amber-500"></i>';
-					iconContainer.classList.remove('bg-primary/10');
-					iconContainer.classList.add('bg-amber-100');
+					if (isWechat) {
+						// 微信环境下的Android设备：只显示引导，不自动跳转
+						statusText.textContent = "请在外部浏览器中打开以下载";
+						messageText.textContent = "微信浏览器限制APK文件下载";
+						document.querySelector('.loading-spin').classList.add('hidden');
+						wechatTipAndroid.classList.remove('hidden');
+						help-tip.classList.remove('hidden');
+						// 更换图标为微信提示样式
+						const iconContainer = document.querySelector('.w-24');
+						iconContainer.innerHTML = '<i class="fa fa-weixin text-4xl text-wechat bounce-icon"></i>';
+						iconContainer.classList.remove('bg-primary/10');
+						iconContainer.classList.add('bg-wechat/10');
+						
+						// 手动跳转按钮点击时强化提示
+						jumpBtn.addEventListener('click', () => {
+							alert('请先点击右上角"..."选择"在浏览器中打开"，再点击下载按钮');
+						});
+					} else {
+						// 非微信环境的Android设备：正常自动跳转
+						statusText.textContent = "正在为您跳转至 Android 下载页面...";
+						messageText.textContent = "如果没有自动跳转，请点击下方按钮";
+						manualJump.classList.remove('hidden');
+						// 自动跳转逻辑
+						setTimeout(() => {
+							window.location.href = "https://download.teljane.com/en/instara.apk";
+							// 备用链接
+							setTimeout(() => {
+								window.location.href = "https://www.pgyer.com/muC6z7dZ";
+							}, 1000);
+						}, 1500);
+
+						// 手动跳转按钮
+						jumpBtn.addEventListener('click', () => {
+							window.location.href = "https://www.pgyer.com/muC6z7dZ";
+						});
+					}
 				}
 			}, 1000);
 		};
