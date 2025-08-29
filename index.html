@@ -80,17 +80,11 @@
 				<span>微信浏览器可能限制跳转，请点击右上角 <i class="fa fa-ellipsis-h ml-1"></i>，选择“在浏览器中打开”以继续</span>
 			</p>
 		</div>
-        <!-- 手动跳转按钮（iOS 默认隐藏） -->
+        <!-- 手动跳转按钮（默认隐藏） -->
         <div id="manual-jump" class="hidden mt-6">
             <button id="jump-btn" class="btn btn-primary w-full mb-3">
                 <i class="fa fa-download mr-2"></i>手动跳转
             </button>
-            <button id="help-btn" class="btn btn-outline w-full">
-                <i class="fa fa-question-circle mr-2"></i>遇到问题？
-            </button>
-        </div>
-		<!-- 手动跳转按钮（Android  默认隐藏） -->
-        <div id="help-tip" class="hidden mt-6">
             <button id="help-btn" class="btn btn-outline w-full">
                 <i class="fa fa-question-circle mr-2"></i>遇到问题？
             </button>
@@ -181,10 +175,6 @@
 						iconContainer.classList.remove('bg-primary/10');
 						iconContainer.classList.add('bg-wechat/10');
 						
-						// 手动跳转按钮点击时强化提示
-						helpBtn.addEventListener('click', () => {
-							alert('请先点击右上角"..."选择"在浏览器中打开"，再点击下载按钮');
-						});
 					} else {
 						// 非微信环境的Android设备：正常自动跳转
 						statusText.textContent = "正在为您跳转至 Android 下载页面...";
