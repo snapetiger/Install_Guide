@@ -55,181 +55,190 @@
     </style>
 </head>
 <body class="bg-gradient-to-br from-slate-50 to-slate-100 min-h-screen flex items-center justify-center p-4 font-sans">
-    <div id="loading-container" class="text-center fade-in card">
-        <!-- 应用图标 -->
-        <div class="w-24 h-24 mx-auto mb-6 bg-primary/10 rounded-full flex items-center justify-center">
-            <i class="fa fa-rocket text-4xl text-primary"></i>
-        </div>
-        <!-- 加载动画 -->
-        <div class="w-12 h-12 border-4 border-primary/20 border-t-primary rounded-full loading-spin mx-auto mb-6"></div>
-        <!-- 状态文本 -->
-        <h2 id="status-text" class="text-xl font-medium text-slate-800 mb-2">正在检测您的设备...</h2>
-        <p id="message-text" class="text-neutral mb-4">请稍候，我们将为您跳转到合适的下载页面</p>
-		<!-- 微信浏览器提示（iOS 默认隐藏） -->
-		<div id="wechat-tip-ios" class="wechat-tip hidden">
-			<p class="flex items-start">
-				<i class="fa fa-info-circle text-wechat mt-0.5 mr-2"></i>
-				<span>微信浏览器可能限制跳转，请点击右上角 <i class="fa fa-ellipsis-h ml-1"></i>，选择“用默认浏览器打开”以继续</span>
-			</p>
-		</div>
-
-		<!-- 微信浏览器提示（Android 默认隐藏） -->
-		<div id="wechat-tip-android" class="wechat-tip hidden">
-			<p class="flex items-start">
-				<i class="fa fa-info-circle text-wechat mt-0.5 mr-2"></i>
-				<span>微信浏览器可能限制跳转，请点击右上角 <i class="fa fa-ellipsis-h ml-1"></i>，选择“在浏览器中打开”以继续</span>
-			</p>
-		</div>
-        <!-- 手动跳转按钮（iOS 默认隐藏） -->
-        <div id="manual-jump" class="hidden mt-6">
-            <button id="jump-btn" class="btn btn-primary w-full mb-3">
-                <i class="fa fa-download mr-2"></i>手动跳转
-            </button>
-            <button id="help-btn" class="btn btn-outline w-full">
-                <i class="fa fa-question-circle mr-2"></i>遇到问题？
-            </button>
-        </div>
-		<!-- 手动跳转按钮（Android 默认隐藏） -->
-        <div id="manual-jump-android" class="hidden mt-6">
-            <button id="jump-btn-android" class="btn btn-primary w-full mb-3">
-                <i class="fa fa-download mr-2"></i>手动跳转
-            </button>
-        </div>
-        <!-- 帮助信息（默认隐藏） -->
-        <div id="help-info" class="hidden mt-4 text-left text-sm bg-slate-50 p-4 rounded-lg">
-            <h3 class="font-medium text-slate-700 mb-2">如何手动打开 TestFlight？</h3>
-            <ol class="list-decimal list-inside space-y-1">
-                <li>确保已安装 TestFlight 应用</li>
-                <li>如果在微信中，请先点击右上角在浏览器中打开</li>
-                <li>点击上方“手动跳转”按钮</li>
-                <li>当系统询问时，选择“打开”</li>
-                <li>在 TestFlight 中接受邀请</li>
-            </ol>
-        </div>
+<div id="loading-container" class="text-center fade-in card">
+    <!-- 应用图标 -->
+    <div class="w-24 h-24 mx-auto mb-6 bg-primary/10 rounded-full flex items-center justify-center">
+        <i class="fa fa-rocket text-4xl text-primary"></i>
+    </div>
+    <!-- 加载动画 -->
+    <div class="w-12 h-12 border-4 border-primary/20 border-t-primary rounded-full loading-spin mx-auto mb-6"></div>
+    <!-- 状态文本 -->
+    <h2 id="status-text" class="text-xl font-medium text-slate-800 mb-2">正在检测您的设备...</h2>
+    <p id="message-text" class="text-neutral mb-4">请稍候，我们将为您跳转到合适的下载页面</p>
+    <!-- 微信浏览器提示（iOS 默认隐藏） -->
+    <div id="wechat-tip-ios" class="wechat-tip hidden">
+        <p class="flex items-start">
+            <i class="fa fa-info-circle text-wechat mt-0.5 mr-2"></i>
+            <span>微信浏览器可能限制跳转，请点击右上角 <i class="fa fa-ellipsis-h ml-1"></i>，选择“用默认浏览器打开”以继续</span>
+        </p>
     </div>
 
-    <script>
-        /************** 可维护配置区 **************/
-        const CONFIG = {
-            // TestFlight
-            testFlightApp: 'itms-beta://testflight.apple.com/join/QTrhXDAd',
-            testFlightWeb: 'https://testflight.apple.com/join/QTrhXDAd',
+    <!-- 微信浏览器提示（Android 默认隐藏） -->
+    <div id="wechat-tip-android" class="wechat-tip hidden">
+        <p class="flex items-start">
+            <i class="fa fa-info-circle text-wechat mt-0.5 mr-2"></i>
+            <span>微信浏览器可能限制跳转，请点击右上角 <i class="fa fa-ellipsis-h ml-1"></i>，选择“在浏览器中打开”以继续</span>
+        </p>
+    </div>
 
-            // AppStore 正式版（把 idXXXXXXXX 换成自家 App）
-            appStore: 'https://apps.apple.com/app/idXXXXXXXX',
+    <!-- 手动跳转按钮（iOS 默认隐藏） -->
+    <div id="manual-jump" class="hidden mt-6">
+        <button id="jump-btn" class="btn btn-primary w-full mb-3">
+            <i class="fa fa-download mr-2"></i>手动跳转
+        </button>
+        <button id="help-btn" class="btn btn-outline w-full">
+            <i class="fa fa-question-circle mr-2"></i>遇到问题？
+        </button>
+    </div>
+    <!-- 手动跳转按钮（Android 默认隐藏） -->
+    <div id="manual-jump-android" class="hidden mt-6">
+        <button id="jump-btn-android" class="btn btn-primary w-full mb-3">
+            <i class="fa fa-download mr-2"></i>手动跳转
+        </button>
+    </div>
+    <!-- 帮助信息（默认隐藏） -->
+    <div id="help-info" class="hidden mt-4 text-left text-sm bg-slate-50 p-4 rounded-lg">
+        <h3 class="font-medium text-slate-700 mb-2">如何手动打开 TestFlight？</h3>
+        <ol class="list-decimal list-inside space-y-1">
+            <li>确保已安装 TestFlight 应用</li>
+            <li>如果在微信中，请先点击右上角在浏览器中打开</li>
+            <li>点击上方“手动跳转”按钮</li>
+            <li>当系统询问时，选择“打开”</li>
+            <li>在 TestFlight 中接受邀请</li>
+        </ol>
+    </div>
+</div>
 
-            // Google Play
-            googlePlay: 'https://play.google.com/store/apps/details?id=com.teljane.instara',
+<div id="wechat-arrow" class="hidden fixed z-50" style="top: calc(env(safe-area-inset-top, 0px) + 8px); right: calc(env(safe-area-inset-right, 0px) + 8px);">
+    <div class="rounded-full bg-wechat/10 backdrop-blur-sm shadow-lg p-3">
+        <svg class="text-wechat" width="84" height="84" viewBox="0 0 24 24">
+            <path d="M5 19 L19 5" stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round"/>
+            <polyline points="14,5 19,5 19,10" stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </div>
+</div>
 
-            // 蒲公英
-            pgyer: 'https://www.pgyer.com/muC6z7dZ',
+<script>
+    /************** 可维护配置区 **************/
+    const CONFIG = {
+        // TestFlight
+        testFlightApp: 'itms-beta://testflight.apple.com/join/QTrhXDAd',
+        testFlightWeb: 'https://testflight.apple.com/join/QTrhXDAd',
 
-            // 欧盟 + 欧洲经济区 + 瑞士
-            EU: new Set(['AT','BE','BG','CY','CZ','DE','DK','EE','ES','FI','FR','GR','HR','HU','IE','IT','LT','LU','LV','MT','NL','PL','PT','RO','SE','SI','SK','IS','LI','NO','CH'])
-        };
-        /******************************************/
+        // AppStore 正式版（把 idXXXXXXXX 换成自家 App）
+        appStore: 'https://apps.apple.com/app/idXXXXXXXX',
 
-        (async function () {
-            const UA = navigator.userAgent;
-            const params = new URLSearchParams(location.search);
-            const debug = params.get('debug') || '';
-            const forceWechat = /wechat/i.test(debug);
-            const forceIOS = /ios/i.test(debug);
-            const forceAndroid = /android/i.test(debug);
+        // Google Play
+        googlePlay: 'https://play.google.com/store/apps/details?id=com.xxx.xxx',
 
-            const isWechat = /MicroMessenger/i.test(UA) || forceWechat;
-            const isIOS = /iPhone|iPad|iPod/i.test(UA) || forceIOS;
-            const isAndroid = /Android/i.test(UA) || forceAndroid;
+        // 蒲公英
+        pgyer: 'https://www.pgyer.com/muC6z7dZ',
 
-            /* 1. 拿国家 */
-            let country = '';
+        // 欧盟 + 欧洲经济区 + 瑞士
+        EU: new Set(['AT','BE','BG','CY','CZ','DE','DK','EE','ES','FI','FR','GR','HR','HU','IE','IT','LT','LU','LV','MT','NL','PL','PT','RO','SE','SI','SK','IS','LI','NO','CH'])
+    };
+    /******************************************/
+
+    (async function () {
+        const UA = navigator.userAgent;
+        const params = new URLSearchParams(location.search);
+        const debug = params.get('debug') || '';
+        const forceWechat = /wechat/i.test(debug);
+        const forceIOS = /ios/i.test(debug);
+        const forceAndroid = /android/i.test(debug);
+
+        const isWechat = /MicroMessenger/i.test(UA) || forceWechat;
+        const isIOS = /iPhone|iPad|iPod/i.test(UA) || forceIOS;
+        const isAndroid = /Android/i.test(UA) || forceAndroid;
+
+        /* 1. 拿国家 */
+        let country = '';
+        try {
+            // 1) 先尝试从本地拿
+            const loc = new Intl.Locale(navigator.language || 'en-US');
+            country = (loc.region || '').toUpperCase();
+        } catch {}
+        if (!country) {
+            // 2) 网络兜底
             try {
-                // 1) 先尝试从本地拿
-                const loc = new Intl.Locale(navigator.language || 'en-US');
-                country = (loc.region || '').toUpperCase();
+                const rsp = await fetch('https://ipapi.co/json/');
+                const data = await rsp.json();
+                country = (data.country_code || '').toUpperCase();
             } catch {}
-            if (!country) {
-                // 2) 网络兜底
-                try {
-                    const rsp = await fetch('https://ipapi.co/json/');
-                    const data = await rsp.json();
-                    country = (data.country_code || '').toUpperCase();
-                } catch {}
-            }
-            const isEU = CONFIG.EU.has(country);
+        }
+        const isEU = CONFIG.EU.has(country);
 
-            /* 2. 选目标地址 */
-            let targetLink = '';
-            if (isIOS) {
-                targetLink = isEU ? CONFIG.appStore : CONFIG.testFlightApp;
-            } else if (isAndroid) {
-                targetLink = isEU ? CONFIG.googlePlay : CONFIG.pgyer;
-            }
+        /* 2. 选目标地址 */
+        let targetLink = '';
+        if (isIOS) {
+            targetLink = isEU ? CONFIG.appStore : CONFIG.testFlightApp;
+        } else if (isAndroid) {
+            targetLink = isEU ? CONFIG.googlePlay : CONFIG.pgyer;
+        }
 
-            /* 3. 更新 UI & 跳转 */
-            const statusText = document.getElementById('status-text');
-            const messageText = document.getElementById('message-text');
-            const spin = document.querySelector('.loading-spin');
-            const manualIos = document.getElementById('manual-jump');
-            const manualAndroid = document.getElementById('manual-jump-android');
-            const jumpBtn = document.getElementById('jump-btn');
-            const jumpBtnAndroid = document.getElementById('jump-btn-android');
+        /* 3. 更新 UI & 跳转 */
+        const statusText = document.getElementById('status-text');
+        const messageText = document.getElementById('message-text');
+        const spin = document.querySelector('.loading-spin');
+        const manualIos = document.getElementById('manual-jump');
+        const manualAndroid = document.getElementById('manual-jump-android');
+        const jumpBtn = document.getElementById('jump-btn');
+        const jumpBtnAndroid = document.getElementById('jump-btn-android');
 
-            function showManual() {
-                spin.classList.add('hidden');
-                if (isIOS) manualIos.classList.remove('hidden');
-                else manualAndroid.classList.remove('hidden');
-            }
+        function showManual() {
+            spin.classList.add('hidden');
+            if (isIOS) manualIos.classList.remove('hidden');
+            else manualAndroid.classList.remove('hidden');
+        }
 
-            // 微信拦截提示
-            if (isWechat) {
-                statusText.textContent = isIOS ? '请在浏览器中打开以继续' : '请在外部浏览器中打开以下载';
-                messageText.textContent = '微信浏览器限制了跳转功能';
-                document.getElementById(isIOS ? 'wechat-tip-ios' : 'wechat-tip-android').classList.remove('hidden');
-                document.getElementById('wechat-arrow').classList.remove('hidden');
-                const iconBox = document.querySelector('.w-24');
-                iconBox.innerHTML = '<i class="fa fa-weixin text-4xl text-wechat"></i>';
-                iconBox.classList.remove('bg-primary/10');
-                iconBox.classList.add('bg-wechat/10');
+        // 微信拦截提示
+        if (isWechat) {
+            statusText.textContent = isIOS ? '请在浏览器中打开以继续' : '请在外部浏览器中打开以下载';
+            messageText.textContent = '微信浏览器限制了跳转功能';
+            document.getElementById(isIOS ? 'wechat-tip-ios' : 'wechat-tip-android').classList.remove('hidden');
+            document.getElementById('wechat-arrow').classList.remove('hidden');
+            const iconBox = document.querySelector('.w-24');
+            iconBox.innerHTML = '<i class="fa fa-weixin text-4xl text-wechat"></i>';
+            iconBox.classList.remove('bg-primary/10');
+            iconBox.classList.add('bg-wechat/10');
+            showManual();
+            // 手动按钮统一用同一套链接
+            (isIOS ? jumpBtn : jumpBtnAndroid).onclick = () => {
+                // iOS 微信下，先尝试 scheme，再退 web
+                if (isIOS) {
+                    location.href = CONFIG.testFlightApp;
+                    setTimeout(() => { location.href = CONFIG.testFlightWeb; }, 1000);
+                } else {
+                    location.href = targetLink;
+                }
+            };
+            return;
+        }
+
+        // 非微信：正常自动跳转
+        statusText.textContent = isIOS
+            ? (isEU ? '正在前往 AppStore…' : '正在为您打开 TestFlight…')
+            : (isEU ? '正在前往 Google Play…' : '正在前往蒲公英下载页…');
+        messageText.textContent = '请稍候，正在尝试启动应用';
+
+        setTimeout(() => {
+            location.href = targetLink;
+            // 若 3s 还没走，就给手动按钮
+            setTimeout(() => {
+                statusText.textContent = '无法自动跳转';
+                messageText.textContent = '请点击下方按钮手动继续';
                 showManual();
-                // 手动按钮统一用同一套链接
                 (isIOS ? jumpBtn : jumpBtnAndroid).onclick = () => {
-                    // iOS 微信下，先尝试 scheme，再退 web
-                    if (isIOS) {
+                    if (isIOS && !isEU) {
                         location.href = CONFIG.testFlightApp;
                         setTimeout(() => { location.href = CONFIG.testFlightWeb; }, 1000);
                     } else {
                         location.href = targetLink;
                     }
                 };
-                return;
-            }
-
-            // 非微信：正常自动跳转
-            statusText.textContent = isIOS
-                ? (isEU ? '正在前往 AppStore…' : '正在为您打开 TestFlight…')
-                : (isEU ? '正在前往 Google Play…' : '正在前往蒲公英下载页…');
-            messageText.textContent = '请稍候，正在尝试启动应用';
-
-            setTimeout(() => {
-                location.href = targetLink;
-                // 若 3s 还没走，就给手动按钮
-                setTimeout(() => {
-                    statusText.textContent = '无法自动跳转';
-                    messageText.textContent = '请点击下方按钮手动继续';
-                    showManual();
-                    (isIOS ? jumpBtn : jumpBtnAndroid).onclick = () => {
-                        if (isIOS && !isEU) {
-                            location.href = CONFIG.testFlightApp;
-                            setTimeout(() => { location.href = CONFIG.testFlightWeb; }, 1000);
-                        } else {
-                            location.href = targetLink;
-                        }
-                    };
-                }, 3000);
-            }, 1000);
-        })();
-    </script>
+            }, 3000);
+        }, 1000);
+    })();
+</script>
 </body>
 </html>
-
