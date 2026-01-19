@@ -185,11 +185,19 @@
         const manualAndroid = document.getElementById('manual-jump-android');
         const jumpBtn = document.getElementById('jump-btn');
         const jumpBtnAndroid = document.getElementById('jump-btn-android');
+        const helpBtn = document.getElementById('help-btn');
+        const helpInfo = document.getElementById('help-info');
 
         function showManual() {
             spin.classList.add('hidden');
             if (isIOS) manualIos.classList.remove('hidden');
             else manualAndroid.classList.remove('hidden');
+        }
+
+        if (helpBtn && helpInfo) {
+            helpBtn.addEventListener('click', () => {
+                helpInfo.classList.toggle('hidden');
+            });
         }
 
         // 微信拦截提示
